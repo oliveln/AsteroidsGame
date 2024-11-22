@@ -7,16 +7,18 @@ boolean isMoving = true;
 public void setup()
 {
   background(0, 0, 0);
-
   size(500, 500);
+  textAlign(LEFT);
   for(int i = 0; i < stars.length; i++){
     stars[i] = new Star();
   }
 }
 public void draw()
 {
- 
   background(0,0,0);
+  textSize(30);
+  fill(0, 0, 255);
+  text("Speed: " + speed, 0, 25); 
   for(int i = 0; i < stars.length; i++){
     stars[i].show();
   }
