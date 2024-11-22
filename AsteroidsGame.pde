@@ -34,18 +34,22 @@ public void keyPressed() {
   if (key == 'w') {
     isMoving = true;
     firstShip.setYspeed(-speed);
+    firstShip.setNewPointDirection(270);
   }
   if (key == 's') {
     isMoving = true;
     firstShip.setYspeed(speed);
+    firstShip.setNewPointDirection(90);
   }
   if (key == 'a') {
     isMoving = true;
     firstShip.setXspeed(-speed);
+    firstShip.setNewPointDirection(180);
   }
   if (key == 'd') {
     isMoving = true;
     firstShip.setXspeed(speed);
+    firstShip.setNewPointDirection(360);
   }
   if (key == 'e') {
     if(speed < 10){
