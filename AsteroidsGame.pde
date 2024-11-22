@@ -58,8 +58,9 @@ public void keyPressed() {
     }
   }
   if (key == 'r') {
-    firstShip.setNewXPosition((int)(Math.random() * 500));
-    firstShip.setNewYPosition((int)(Math.random() * 500));
+    firstShip.setNewXPosition((double)(Math.random() * 500));
+    firstShip.setNewYPosition((double)(Math.random() * 500));
+    firstShip.setNewPointDirection((double)(Math.random()*360));
     isMoving = false;
   }
 }
