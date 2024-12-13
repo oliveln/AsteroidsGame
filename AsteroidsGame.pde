@@ -43,7 +43,6 @@ public void draw()
     float d = dist((float)(firstShip.getCenterX()), (float)(firstShip.getCenterY()), (float)asteroidList.get(i).getCenterX(), (float)asteroidList.get(i).getCenterY());
     if (d < 15) {
       asteroidList.remove(i);
-      i--;
     }
   }
   if (isDevView == true) {
