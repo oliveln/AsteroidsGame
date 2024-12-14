@@ -2,6 +2,7 @@
 Spaceship firstShip = new Spaceship();
 Star [] stars = new Star[400];
 ArrayList <Asteroid> asteroidList = new ArrayList <Asteroid>();
+ArrayList <Bullet> shots = new ArrayList <Bullet> ();
 int textX = 3;
 int firstTextY = 20;
 int textSpacing = 15;
@@ -22,7 +23,7 @@ public void setup()
     stars[i] = new Star();
   }
 
-  for (int i = 0; i < 5; i++) {
+  for (int i = 0; i < 10; i++) {
     asteroidList.add(new Asteroid());
     asteroidList.get(i).move();
     asteroidList.get(i).show();
@@ -33,6 +34,7 @@ public void draw()
 {
   background(0, 0, 0);
   noStroke();
+
   for (int i = 0; i < stars.length; i++) {
     stars[i].show();
   }
@@ -40,9 +42,27 @@ public void draw()
   for (int i = 0; i < asteroidList.size(); i++) {
     asteroidList.get(i).move();
     asteroidList.get(i).show();
-    float d = dist((float)(firstShip.getCenterX()), (float)(firstShip.getCenterY()), (float)asteroidList.get(i).getCenterX(), (float)asteroidList.get(i).getCenterY());
-    if (d < 15) {
+    float spaceDistance = dist((float)(firstShip.getCenterX()), (float)(firstShip.getCenterY()), (float)asteroidList.get(i).getCenterX(), (float)asteroidList.get(i).getCenterY());
+    if (spaceDistance < 15) {
       asteroidList.remove(i);
+      i--;
+    }
+  }
+  if (shots.size() > 0) {
+    for (int i = 0; i < shots.size(); i++) {
+      shots.get(i).move();
+      shots.get(i).show();
+      
+      for (int j = 0; j < asteroidList.size(); j++) {
+        float bulletDistance = dist((float)(shots.get(i).getCenterX()), (float)(shots.get(i).getCenterY()), (float)asteroidList.get(j).getCenterX(), (float)asteroidList.get(j).getCenterY());
+        if (bulletDistance < 10) {
+          asteroidList.remove(j);
+          shots.remove(i);
+          j--;
+          i--;
+          break;
+        }
+      }
     }
   }
   if (isDevView == true) {
@@ -56,11 +76,16 @@ public void draw()
     text("# of Stars: " + stars.length, textX, firstTextY + textSpacing*5);
     text("isDevView: " + isDevView, textX, firstTextY + textSpacing*6);
     text("# of Asteroids:" + asteroidList.size(), 3, firstTextY + textSpacing*7);
+    text("# of Bullets:" + shots.size(), 3, firstTextY + textSpacing*8);
   }
 
   firstShip.show();
   if (isMoving == true) {
     firstShip.move();
+  }
+  for (int i = 0; i < shots.size(); i++) {
+    shots.get(i).move();
+    shots.get(i).show();
   }
 }
 
@@ -103,5 +128,8 @@ public void keyPressed() {
   }
   if (key == 32) {
     isDevView = !isDevView;
+  }
+  if (key == 'v') {
+    shots.add(new Bullet(firstShip));
   }
 }
